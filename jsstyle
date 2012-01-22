@@ -487,7 +487,7 @@ line: while (<$filehandle>) {
 	if (/\S   *(&&|\|\|)/ || /(&&|\|\|)   *\S/) {
 		err("more than one space around boolean operator");
 	}
-	if (/\b(delete|typeof|instanceOf|throw|with|catch|new|function|in|for|if|while|switch|return|case)\(/) {
+	if (/\b(delete|instanceOf|throw|with|catch|new|in|for|if|while|switch|return|case)\(/) {
 		err("missing space between keyword and paren");
 	}
 	if (/(\b(catch|for|if|with|while|switch|return)\b.*){2,}/) {
@@ -516,8 +516,8 @@ line: while (<$filehandle>) {
 		$_ = $s;
 	}
 
-	if (/^\s*return\W[^;]*;/ && !/^\s*return\s*\(.*\);/) {
-		err("unparenthesized return expression");
+	if (/^\s*return\W[^;]*;/ && /^\s*return\s*\(.*\);/) {
+		err("parenthesized return expression");
 	}
 	if (/\btypeof\b/ && !/\btypeof\s*\(.*\)/) {
 		err("unparenthesized typeof expression");
